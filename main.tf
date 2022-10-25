@@ -71,7 +71,7 @@ module "helm" {
   images          = var.images
   set_values = [
     {
-      name  = "rbac.serviceAccount.name"
+      name  = "serviceAccount.server.name"
       value = var.service_account_name
     },
     {
