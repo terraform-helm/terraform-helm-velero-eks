@@ -54,6 +54,10 @@ module "helm" {
       name  = "serviceAccount.server.create"
       value = "false"
     },
+    {
+      name  = "cleanUpCRDs"
+      value = "true"
+    },
   ]
   values = [templatefile("${path.module}/helm/velero.yaml", {
     aws_region = var.region,
