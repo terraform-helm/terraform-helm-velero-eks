@@ -40,6 +40,30 @@ data "aws_iam_policy_document" "velero" {
   }
 }
 
+data "aws_iam_policy_document" "assume_role_policy" {
+  statement {
+    principals {
+      type        = "Federated"
+      identifiers = [local.eks_oidc_provider_arn]
+    }
+
+    actions = [
+      "sts:AssumeRoleWithWebIdentity",
+    ]
+
+    condition {
+      test     = "StringLike"
+      variable = "${local.eks_oidc_issuer_url}:sub"
+      values   = ["system:serviceaccount:${var.kubernetes_namespace}:${var.service_account_name}"]
+    }
+    condition {
+      test     = "StringLike"
+      variable = "${local.eks_oidc_issuer_url}:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+  }
+}
+
 module "helm" {
   source          = "github.com/terraform-helm/terraform-helm-velero"
   count           = var.install_helm ? 1 : 0
@@ -61,7 +85,7 @@ module "helm" {
   ]
   values = [templatefile("${path.module}/helm/velero.yaml", {
     aws_region = var.region,
-    aws_image  = var.image.aws,
+    aws_image  = var.images.aws,
     bucket     = var.bucket,
     }
   )]
