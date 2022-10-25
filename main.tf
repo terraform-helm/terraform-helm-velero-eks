@@ -119,7 +119,7 @@ resource "aws_iam_role" "this" {
 
 resource "aws_iam_policy" "this" {
   name        = var.irsa_iam_policy_name
-  description = "Cluster Velero IAM policy"
+  description = "Provides Velero permissions to backup and restore cluster resources"
   policy      = data.aws_iam_policy_document.velero.json
 }
 
