@@ -107,7 +107,7 @@ resource "kubernetes_service_account_v1" "this" {
   metadata {
     name        = var.service_account_name
     namespace   = var.kubernetes_namespace
-    annotations = { "eks.amazonaws.com/role-arn" : aws_iam_role.this.arn }
+    annotations = { "eks.amazonaws.com/role-arn" : module.iam.arn }
   }
 
   dynamic "image_pull_secret" {
