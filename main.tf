@@ -64,6 +64,18 @@ data "aws_iam_policy_document" "assume_role_policy" {
   }
 }
 
+module "iam" {
+  source                        = "github.com/terraform-helm/terraform-aws-iam-role"
+  iam_role_name                 = var.irsa_iam_role_name
+  iam_role_description          = "AWS IAM Role for the Kubernetes service account ${var.service_account_name}."
+  iam_role_assume_role_policy   = data.aws_iam_policy_document.assume_role_policy.json
+  iam_role_permissions_boundary = var.irsa_iam_permissions_boundary
+  iam_role_path                 = var.irsa_iam_role_path
+  iam_policy_name               = var.irsa_iam_policy_name
+  iam_policy_description        = "Provides Velero permissions to backup and restore cluster resources"
+  iam_policy_policy             = data.aws_iam_policy_document.velero.json
+}
+
 module "helm" {
   source          = "github.com/terraform-helm/terraform-helm-velero"
   count           = var.install_helm ? 1 : 0
@@ -108,22 +120,3 @@ resource "kubernetes_service_account_v1" "this" {
   automount_service_account_token = true
 }
 
-resource "aws_iam_role" "this" {
-  name                  = var.irsa_iam_role_name
-  description           = "AWS IAM Role for the Kubernetes service account ${var.service_account_name}."
-  assume_role_policy    = data.aws_iam_policy_document.assume_role_policy.json
-  path                  = var.irsa_iam_role_path
-  force_detach_policies = true
-  permissions_boundary  = var.irsa_iam_permissions_boundary
-}
-
-resource "aws_iam_policy" "this" {
-  name        = var.irsa_iam_policy_name
-  description = "Provides Velero permissions to backup and restore cluster resources"
-  policy      = data.aws_iam_policy_document.velero.json
-}
-
-resource "aws_iam_role_policy_attachment" "this" {
-  policy_arn = aws_iam_policy.this.arn
-  role       = aws_iam_role.this.name
-}
