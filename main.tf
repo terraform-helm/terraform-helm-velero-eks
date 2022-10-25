@@ -84,9 +84,9 @@ module "helm" {
     },
   ]
   values = [templatefile("${path.module}/helm/velero.yaml", {
-    aws_region = var.region,
-    aws_image  = var.images.aws,
-    bucket     = var.bucket,
+    region    = var.region,
+    aws_image = var.images.aws,
+    bucket    = var.bucket,
     }
   )]
 }
