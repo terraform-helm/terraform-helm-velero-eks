@@ -1,6 +1,11 @@
 initContainers:
   - name: velero-plugin-for-aws
     image: ${aws_image}
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - all
     volumeMounts:
       - mountPath: /target
         name: plugins
@@ -17,3 +22,9 @@ configuration:
 
 credentials:
   useSecret: false
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+     drop: ["ALL"]
+  readOnlyRootFilesystem: true
