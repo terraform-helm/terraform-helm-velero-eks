@@ -6,6 +6,7 @@ initContainers:
       capabilities:
         drop:
           - all
+      runAsNonRoot: true
     volumeMounts:
       - mountPath: /target
         name: plugins
@@ -28,3 +29,4 @@ containerSecurityContext:
   capabilities:
      drop: ["ALL"]
   readOnlyRootFilesystem: true
+  runAsNonRoot: true
