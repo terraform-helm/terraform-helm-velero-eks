@@ -30,3 +30,4 @@ containerSecurityContext:
      drop: ["ALL"]
   readOnlyRootFilesystem: true
   runAsNonRoot: true
+  runAsUser: 2000
