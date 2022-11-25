@@ -17,13 +17,12 @@ module "helm" {
       value = "true"
     },
   ]
-  values = [templatefile("${path.module}/helm/velero.yaml", {
+  values = concat([templatefile("${path.module}/helm/velero.yaml", {
     region    = var.region,
     aws_image = var.images.aws,
     bucket    = var.bucket,
     }
-    ), var.values
-  ]
+    )], var.values)
 }
 
 resource "kubernetes_service_account_v1" "this" {
