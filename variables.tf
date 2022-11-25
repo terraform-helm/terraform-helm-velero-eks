@@ -78,3 +78,9 @@ variable "oidc_provider" {
   type        = string
   default     = null
 }
+
+variable "values" {
+  description = "Values"
+  type        = list(any)
+  default     = []
+}

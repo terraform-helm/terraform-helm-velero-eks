@@ -22,7 +22,8 @@ module "helm" {
     aws_image = var.images.aws,
     bucket    = var.bucket,
     }
-  )]
+    ), var.values
+  ]
 }
 
 resource "kubernetes_service_account_v1" "this" {
