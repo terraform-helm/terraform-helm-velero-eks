@@ -18,7 +18,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_helm"></a> [helm](#module\_helm) | github.com/terraform-helm/terraform-helm-velero | n/a |
+| <a name="module_helm"></a> [helm](#module\_helm) | github.com/terraform-helm/terraform-helm-velero | v0.1 |
 | <a name="module_role_sa"></a> [role\_sa](#module\_role\_sa) | github.com/littlejo/terraform-aws-role-eks.git | v0.1 |
 
 ## Resources
