@@ -31,11 +31,11 @@ data "aws_iam_policy_document" "this" {
 }
 
 module "role_sa" {
-  source        = "github.com/littlejo/terraform-aws-role-eks.git?ref=v0.1"
-  name          = var.irsa_iam_role_name
-  inline_policy = data.aws_iam_policy_document.this.json
-  cluster_id    = var.cluster_id
-  create_sa     = true
+  source          = "github.com/littlejo/terraform-aws-role-eks.git?ref=main"
+  name            = var.irsa_iam_role_name
+  inline_policies = { policy = data.aws_iam_policy_document.this.json }
+  cluster_id      = var.cluster_id
+  create_sa       = true
   service_accounts = {
     main = {
       name      = var.service_account_name
