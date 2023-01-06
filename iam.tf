@@ -1,3 +1,7 @@
+locals {
+  inline_policies = var.irsa_iam_role_use_default_inline_policy ? merge({ policy = data.aws_iam_policy_document.this.json }, var.irsa_iam_role_additional_inline_policies) : var.irsa_iam_role_additional_inline_policies
+}
+
 data "aws_partition" "this" {}
 
 data "aws_iam_policy_document" "this" {
@@ -31,9 +35,9 @@ data "aws_iam_policy_document" "this" {
 }
 
 module "role_sa" {
-  source          = "github.com/littlejo/terraform-aws-role-eks.git?ref=main"
+  source          = "github.com/littlejo/terraform-aws-role-eks.git?ref=v0.2"
   name            = var.irsa_iam_role_name
-  inline_policies = { policy = data.aws_iam_policy_document.this.json }
+  inline_policies = local.inline_policies
   cluster_id      = var.cluster_id
   create_sa       = true
   service_accounts = {

@@ -42,6 +42,18 @@ variable "irsa_iam_role_name" {
   default     = "eks-velero"
 }
 
+variable "irsa_iam_role_additional_inline_policies" {
+  type        = map(string)
+  description = "Additional inline policies for IRSA IAM role"
+  default     = {}
+}
+
+variable "irsa_iam_role_use_default_inline_policy" {
+  type        = bool
+  description = "Use of default inline policy for IRSA IAM role"
+  default     = true
+}
+
 variable "cluster_id" {
   description = "EKS cluster name"
   type        = string
