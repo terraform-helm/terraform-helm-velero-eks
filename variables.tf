@@ -54,6 +54,12 @@ variable "irsa_iam_role_use_default_inline_policy" {
   default     = true
 }
 
+variable "stateful" {
+  type        = bool
+  description = "Use stateful kubernetes"
+  default     = false
+}
+
 variable "cluster_id" {
   description = "EKS cluster name"
   type        = string
@@ -62,6 +68,12 @@ variable "cluster_id" {
 variable "bucket" {
   description = "bucket name"
   type        = string
+}
+
+variable "bucket_kms_arn" {
+  description = "kms arn which encrypt S3 bucket"
+  type        = string
+  default     = null
 }
 
 variable "region" {

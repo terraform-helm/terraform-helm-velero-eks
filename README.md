@@ -25,7 +25,9 @@
 
 | Name | Type |
 |------|------|
-| [aws_iam_policy_document.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.ec2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.kms](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_partition.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 
 ## Inputs
@@ -33,6 +35,7 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket"></a> [bucket](#input\_bucket) | bucket name | `string` | n/a | yes |
+| <a name="input_bucket_kms_arn"></a> [bucket\_kms\_arn](#input\_bucket\_kms\_arn) | kms arn which encrypt S3 bucket | `string` | `null` | no |
 | <a name="input_cluster_id"></a> [cluster\_id](#input\_cluster\_id) | EKS cluster name | `string` | n/a | yes |
 | <a name="input_images"></a> [images](#input\_images) | Map of images | <pre>object({<br>    main    = optional(string)<br>    kubectl = optional(string)<br>    aws     = optional(string)<br>  })</pre> | <pre>{<br>  "aws": null,<br>  "kubectl": null,<br>  "main": null<br>}</pre> | no |
 | <a name="input_install_helm"></a> [install\_helm](#input\_install\_helm) | Do you want to install helm chart? | `bool` | `true` | no |
@@ -43,6 +46,7 @@
 | <a name="input_region"></a> [region](#input\_region) | Region of you eks cluster | `string` | n/a | yes |
 | <a name="input_release_version"></a> [release\_version](#input\_release\_version) | version of helm release | `string` | `null` | no |
 | <a name="input_service_account_name"></a> [service\_account\_name](#input\_service\_account\_name) | Name of the service account to have right to send to S3 bucket | `string` | `"velero"` | no |
+| <a name="input_stateful"></a> [stateful](#input\_stateful) | Use stateful kubernetes | `bool` | `false` | no |
 | <a name="input_values"></a> [values](#input\_values) | Values | `list(any)` | `[]` | no |
 
 ## Outputs
